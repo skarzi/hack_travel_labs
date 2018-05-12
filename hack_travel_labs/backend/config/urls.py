@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^healthz/', include('health_check.urls')),
     # User management
     url(r'^users/', include('hack_travel_labs.users.urls')),
+    url(r'^flights/', include('hack_travel_labs.flight_finder.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^docs/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),

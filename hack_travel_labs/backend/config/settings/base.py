@@ -61,8 +61,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'hack_travel_labs.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
     'hack_travel_labs.location_finder.apps.LocationFinderConfig',
+    'hack_travel_labs.flight_finder.apps.FlightConfig',
 ]
 
 
@@ -347,3 +347,6 @@ REST_FRAMEWORK = {
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+RYANAIR_KEY = env('RYANAIR_KEY')
+
+ENVIRONMENT = env('ENVIRONMENT', default='LOCAL')
