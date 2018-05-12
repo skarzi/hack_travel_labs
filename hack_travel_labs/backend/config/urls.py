@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from rest_framework import permissions, authentication
 from drf_yasg.views import get_schema_view
@@ -17,26 +16,23 @@ schema_view = get_schema_view(
     ),
     validators=['flex', 'ssv'],
     public=False,
-    permission_classes=(permissions.IsAdminUser,),
+    permission_classes=(permissions.AllowAny,),
     authentication_classes=(authentication.TokenAuthentication,
                             authentication.SessionAuthentication),
 )
 
-
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
     url(r'^healthz/', include('health_check.urls')),
-    # User management
     url(r'^users/', include('hack_travel_labs.users.urls')),
-    url(r'^flights/', include('hack_travel_labs.flight_finder.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^docs/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
     # Your stuff: custom urls includes go here
+    url(r'^$', include('hack_travel_labs.ryanair_app.urls')),
     url(r'^location/', include('hack_travel_labs.location_finder.urls')),
+    url(r'^flights/', include('hack_travel_labs.flight_finder.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

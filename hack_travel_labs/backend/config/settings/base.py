@@ -61,6 +61,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'hack_travel_labs.users.apps.UsersConfig',
+    'hack_travel_labs.ryanair_app.apps.RyanairConfig',
     'hack_travel_labs.location_finder.apps.LocationFinderConfig',
     'hack_travel_labs.flight_finder.apps.FlightConfig',
 ]
@@ -324,7 +325,7 @@ ADMIN_URL = r'^admin/'
 # Settings for Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',

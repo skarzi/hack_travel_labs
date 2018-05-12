@@ -1,13 +1,11 @@
 from django.conf import settings
-from rest_framework import permissions
-from rest_framework.decorators import api_view, schema, permission_classes
+from rest_framework.decorators import api_view, schema
 from rest_framework.response import Response
 
 from .exceptions import InvalidEnvironment, MissingLatParam, MissingLngParam
 from . import utils
 
 @api_view(['GET'])
-@permission_classes([permissions.AllowAny,])
 @schema(None)
 def get_flights_for_lat_lng(request):
     # Example lat: 51.50853
@@ -21,11 +19,10 @@ def get_flights_for_lat_lng(request):
         raise InvalidEnvironment()
 
     lat = request.GET.get('lat')
+    lng = request.GET.get('lng')
     if not lat:
         raise MissingLatParam()
-
-    lng = request.GET.get('lng')
-    if not lng:
+    elif not lng:
         raise MissingLngParam()
 
     params = dict(
