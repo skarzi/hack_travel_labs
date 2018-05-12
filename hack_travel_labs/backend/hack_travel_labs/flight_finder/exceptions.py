@@ -3,3 +3,9 @@ class NoFlightFoundFound(Exception):
 
 class InvalidEnvironment(Exception):
     pass
+
+class MissingLatParam(Exception):
+    pass
+
+class MissingLngParam(Exception):
+    pass

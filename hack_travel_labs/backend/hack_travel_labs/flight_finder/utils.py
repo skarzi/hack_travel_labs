@@ -22,17 +22,17 @@ def _find_nearby_airports(args):
     args = f'{args}&limit=10'
     return request_ryanair('geolocation/3/nearbyAirports', args)
 
-def find_cheapest_flight(sources, destinations):
+def find_cheapest_flight(sources, destinations, params):
     for destination in destinations:
         destination_loc = destination.get('iataCode')
         for source in sources:
             source_loc = source.get('iataCode')
             args = f'departureAirportIataCode={source_loc}&arrivalAirportIataCode={destination_loc}'
-            forth_depart = '2018-05-12'
-            forth_arrive = '2018-05-15'
+            forth_depart = params['forth_depart']
+            forth_arrive = params['forth_arrive']
             args = f'{args}&outboundDepartureDateFrom={forth_depart}&outboundDepartureDateTo={forth_arrive}'
-            back_depart = '2018-05-20'
-            back_arrive = '2018-05-22'
+            back_depart = params['back_depart']
+            back_arrive = params['back_arrive']
             args = f'{args}&inboundDepartureDateFrom={back_depart}&inboundDepartureDateTo={back_arrive}'
             try:
                 cheapest_flight = _find_cheapest_flight(args)
