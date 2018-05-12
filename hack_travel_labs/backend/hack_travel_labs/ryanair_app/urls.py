@@ -7,8 +7,8 @@ from . import views
 app_name = 'ryanair'
 
 router = routers.DefaultRouter()
-router.register(r'image_frames', views.ImageFrameViewSet, base_name='image_frames')
+router.register(r'videos', views.VideoViewSet, base_name='videos')
 
 urlpatterns = [
-    url(r'^$', include(router.urls)),
+    url(r'', include(router.urls)),
 ]

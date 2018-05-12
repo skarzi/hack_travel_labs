@@ -1,10 +1,10 @@
-FROM python:3.6-slim
+FROM python:3.6-stretch
 
 ENV PYTHONUNBUFFERED 1
 
 
 RUN apt-get -qq update \
-    && apt-get -qq -y install libpq-dev gcc vim \
+    && apt-get -qq -y install libpq-dev gcc vim ffmpeg\
     && rm -rf /var/lib/apt/lists/* \
     && apt-get -qq -y clean
 
@@ -35,6 +35,7 @@ COPY ./shared/ /app/shared/
 COPY ./backend /app
 
 WORKDIR /app
+RUN chmod -R 777 shared/
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/start.sh"]

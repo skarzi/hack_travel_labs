@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 
-from .models import ImageFrame
-from .serializers import ImageFrameSerializers
+from .models import Video
+from .serializers import VideoSerializers
 
 
-class ImageFrameViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = ImageFrameSerializers
-    queryset = ImageFrame.objects.all()
+class VideoViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = VideoSerializers
+    queryset = Video.objects.all()

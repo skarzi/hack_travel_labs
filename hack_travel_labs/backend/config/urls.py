@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^docs/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
     # Your stuff: custom urls includes go here
-    url(r'^$', include('hack_travel_labs.ryanair_app.urls')),
+    url(r'', include('hack_travel_labs.ryanair_app.urls')),
     url(r'^location/', include('hack_travel_labs.location_finder.urls')),
     url(r'^flights/', include('hack_travel_labs.flight_finder.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

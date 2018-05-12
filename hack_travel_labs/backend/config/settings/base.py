@@ -7,6 +7,8 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import os
+
 import environ
 
 # (hack_travel_labs/backend/config/settings/base.py - 3 = hack_travel_labs/backend) or inside docker container is path /app
@@ -351,3 +353,6 @@ REST_FRAMEWORK = {
 RYANAIR_KEY = env('RYANAIR_KEY')
 
 ENVIRONMENT = env('ENVIRONMENT', default='LOCAL')
+
+FRAMES_DIRECTORY = os.path.join(MEDIA_ROOT, 'frames')
+FRAMES_PER_VIDEO = 300
