@@ -2,8 +2,9 @@ from django.conf import settings
 from rest_framework.decorators import api_view, schema
 from rest_framework.response import Response
 
+from .tasks import find_flight
 from .exceptions import InvalidEnvironment, MissingLatParam, MissingLngParam
-from . import utils
+
 
 @api_view(['GET'])
 @schema(None)
@@ -25,16 +26,16 @@ def get_flights_for_lat_lng(request):
     elif not lng:
         raise MissingLngParam()
 
-    params = dict(
+    flight = find_flight(dict(
+        ip=ip,
+        lat=lat,
+        lng=lng,
         forth_depart=request.GET.get('forth_depart', '2018-05-12'),
         forth_arrive=request.GET.get('forth_arrive', '2018-05-15'),
         back_depart=request.GET.get('back_depart', '2018-05-20'),
         back_arrive = request.GET.get('back_arrive', '2018-05-22'),
-    )
+    ))
 
-    sources = utils.find_nearby_airports_by_ip(ip)
-    destinations = utils.find_nearby_airports_by_lat_lng(lat, lng)
-    flight = utils.find_cheapest_flight(sources, destinations, params)
     return Response(data={
         'flight': flight
     }, status=200)

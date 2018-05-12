@@ -28,11 +28,11 @@ def find_cheapest_flight(sources, destinations, params):
         for source in sources:
             source_loc = source.get('iataCode')
             args = f'departureAirportIataCode={source_loc}&arrivalAirportIataCode={destination_loc}'
-            forth_depart = params['forth_depart']
-            forth_arrive = params['forth_arrive']
+            forth_depart = params.get('forth_depart')
+            forth_arrive = params.get('forth_arrive')
             args = f'{args}&outboundDepartureDateFrom={forth_depart}&outboundDepartureDateTo={forth_arrive}'
-            back_depart = params['back_depart']
-            back_arrive = params['back_arrive']
+            back_depart = params.get('back_depart')
+            back_arrive = params.get('back_arrive')
             args = f'{args}&inboundDepartureDateFrom={back_depart}&inboundDepartureDateTo={back_arrive}'
             try:
                 cheapest_flight = _find_cheapest_flight(args)
