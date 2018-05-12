@@ -125,7 +125,15 @@ MANAGERS = ADMINS
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///hack_travel_labs'),
+    # 'default': env.db('DATABASE_URL', default='postgres:///hack_travel_labs'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'HOST': env('POSTGRES_HOST'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'PORT': int(env('POSTGRES_PORT', default=5432))
+    }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
