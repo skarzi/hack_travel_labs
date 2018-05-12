@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = .
+omit = *migrations*, *tests*, *config*, manage.py, *conftest.py
+plugins =
+    django_coverage_plugin

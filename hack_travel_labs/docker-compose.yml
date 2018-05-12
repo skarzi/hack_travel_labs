@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  db:
+    container_name: db-hack_travel_labs
+    image: postgres:9.6-alpine
+    volumes:
+      - ./shared/postgresql:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  app: &app
+    container_name: app-hack_travel_labs
+    build:
+      context: .
+      dockerfile: ./docker/local/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+      - ./shared/media:/app/shared/media
+      - ./shared/static:/app/shared/static
+      - ./shared/templates:/app/shared/templates
+
+#  redis:
+#    container_name: redis-hack_travel_labs
+#    image: redis:3.0
+#    env_file:
+#      - .env
+
+#  celeryworker:
+#    <<: *app
+#    container_name: celeryworker-hack_travel_labs
+#    depends_on:
+#      - redis
+#      - db
+#    ports: []
+#    env_file:
+#      - .env
+#    command: /start-celeryworker.sh
+
+#  celerybeat:
+#    <<: *app
+#    container_name: celerybeat-hack_travel_labs
+#    depends_on:
+#      - redis
+#      - db
+#    ports: []
+#    env_file:
+#      - .env
+#    command: /start-celerybeat.sh
