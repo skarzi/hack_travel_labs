@@ -62,6 +62,7 @@ LOCAL_APPS = [
     # custom users app
     'hack_travel_labs.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'hack_travel_labs.location_finder.apps.LocationFinderConfig',
 ]
 
 

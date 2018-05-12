@@ -65,3 +65,4 @@ flex>=6.11.1
 
 
 # Your custom requirements go here
+google-cloud-vision==0.31.1
