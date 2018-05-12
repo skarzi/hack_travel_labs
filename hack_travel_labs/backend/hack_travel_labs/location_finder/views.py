@@ -1,13 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
 
 from .services import GoogleLocationFinder
 from .exceptions import MissingImageException
 
 
 class LocationFindView(APIView):
-    permission_classes = (AllowAny,)
     image_file_key = 'image'
 
     def post(self, request):

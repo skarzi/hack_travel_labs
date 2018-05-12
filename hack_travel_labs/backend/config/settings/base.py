@@ -61,8 +61,9 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'hack_travel_labs.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+    'hack_travel_labs.ryanair_app.apps.RyanairConfig',
     'hack_travel_labs.location_finder.apps.LocationFinderConfig',
+    'hack_travel_labs.flight_finder.apps.FlightConfig',
 ]
 
 
@@ -324,7 +325,7 @@ ADMIN_URL = r'^admin/'
 # Settings for Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -347,3 +348,6 @@ REST_FRAMEWORK = {
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+RYANAIR_KEY = env('RYANAIR_KEY')
+
+ENVIRONMENT = env('ENVIRONMENT', default='LOCAL')
