@@ -12,7 +12,7 @@ class GoogleLocationFinder:
     def find(self, image_obj, context=None):
         image = types.Image(content=image_obj.file.read())
         response = self.image_annotator.landmark_detection(image)
-        self._raise_for_error(response.error)
+        self._raise_for_error(response)
         return self._make_response(response.landmark_annotations)
 
     def _make_response(self, landmark_annotations):
@@ -24,10 +24,10 @@ class GoogleLocationFinder:
             'locations': self._landmark_annotation_to_dict(landmark),
         }
 
-    def _raise_for_error(self, error):
-        if error is not None:
+    def _raise_for_error(self, response):
+        if response.HasField('error'):
             raise GoogleCloudVisionException(
-                detail=error.message,
+                detail=response.error.message,
             )
 
     def _landmark_annotation_to_dict(self, landmark_annotation):
