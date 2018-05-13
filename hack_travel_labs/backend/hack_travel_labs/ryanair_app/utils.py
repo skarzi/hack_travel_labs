@@ -1,11 +1,13 @@
+import os
+
 from PIL import Image, ImageDraw, ImageFont
+from django.conf import settings
 
-
-STATIC_APP_DIR = '/static/ryanair_app/assets'
+STATIC_APP_DIR = os.path.join(settings.STATIC_ROOT, 'ryanair_app/assets')
 
 
 def banner1(destination, price):
-    im = Image.open("/static/ryanair_app/assets/banner1.png")
+    im = Image.open(f"{STATIC_APP_DIR}/ryanair_app/assets/banner1.png")
     draw = ImageDraw.Draw(im)
     draw.text((180, 20), "Flights to ",
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-LightSemiExt.otf", size=30), fill=0x964016)
