@@ -22,7 +22,7 @@ def get_results(request):
     video = Video.objects.get(id=video_id)
 
     locations = list()
-    for frame in video.frames:
+    for frame in video.frames.all():
         country = frame.flight['outbound']['arrivalAirport']['countryName']
         price = frame.flight['outbound']['price']['value']
         departureAirport = frame.flight['outbound']['departureAirport']['iataCode']
