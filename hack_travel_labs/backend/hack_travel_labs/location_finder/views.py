@@ -2,8 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from hack_travel_labs.ryanair_app.serializers import VideoSerializer
+from hack_travel_labs.ryanair_app.models import Video
+from hack_travel_labs.flight_finder import utils
 
 from .services import (
+    drop_duplicate_locations_by_name,
     fill_video_frame_location_data,
     GoogleLocationService,
     prepare_video_for_frame_splitting,
@@ -23,6 +26,12 @@ class LocationFindView(APIView):
 
     def get(self, request):
         video_url = request.query_params['video_url']
+        try:
+            video = Video.objects.get(pk=video_url[-11:])
+        except Video.DoesNotExist:
+            pass
+        else:
+            return Response(data=VideoSerializer(video).data)
         print(f'getting data for {video_url}...')
         video = YouTubeVideoDataExtractService().extract(video_url)
         print(f'data for {video.id}: {video.duration}, {video.frequency}')
@@ -31,6 +40,27 @@ class LocationFindView(APIView):
         # parts = prepare_video_for_frame_splitting(video)
         for video_frame in video_frame_extract_service.extract(video):
             fill_video_frame_location_data(video_frame, location_service)
+        video = drop_duplicate_locations_by_name(video)
+        sources = utils.find_nearby_airports_by_ip(
+            request.META.get('REMOTE_ADDR', '213.216.126.33'),
+        )
+        for video_frame in video.frames.all():
+            destinations = utils.find_nearby_airports_by_lat_lng(
+                video_frame.latitude,
+                video_frame.longtitude,
+            )
+            fligth = utils.find_cheapest_flight(
+                sources,
+                destinations,
+                dict(
+                    forth_depart=request.GET.get('forth_depart', '2018-05-12'),
+                    forth_arrive=request.GET.get('forth_arrive', '2018-05-15'),
+                    back_depart=request.GET.get('back_depart', '2018-05-20'),
+                    back_arrive = request.GET.get('back_arrive', '2018-05-22'),
+                ),
+            )
+            video_frame.flight = fligth
+            video_frame.save()
         return Response(data=VideoSerializer(video).data)
 
     def _get_image_or_raise(self, request):
