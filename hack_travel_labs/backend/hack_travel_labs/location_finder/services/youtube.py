@@ -45,6 +45,18 @@ def fill_video_frame_location_data(video_frame, location_service):
         return video_frame
 
 
+def drop_duplicate_locations_by_name(video):
+    unique_frames = dict()
+    for video_frame in video.frames.all():
+        if video_frame.name in unique_frames:
+            video_frame.delete()
+        else:
+            unique_frames.setdefault(video_frame.name, video_frame)
+    video.frames.set(list(unique_frames.values()))
+    video.save()
+    return video
+
+
 class YouTubeVideoDataExtractService:
     def __init__(self, resolution='hd720'):
         self._resolution = resolution

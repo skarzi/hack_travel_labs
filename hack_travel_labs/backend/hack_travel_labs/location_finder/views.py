@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from hack_travel_labs.ryanair_app.serializers import VideoSerializer
 
 from .services import (
+    drop_duplicate_locations_by_name,
     fill_video_frame_location_data,
     GoogleLocationService,
     prepare_video_for_frame_splitting,
@@ -31,6 +32,7 @@ class LocationFindView(APIView):
         # parts = prepare_video_for_frame_splitting(video)
         for video_frame in video_frame_extract_service.extract(video):
             fill_video_frame_location_data(video_frame, location_service)
+        video = drop_duplicate_locations_by_name(video)
         return Response(data=VideoSerializer(video).data)
 
     def _get_image_or_raise(self, request):
