@@ -38,8 +38,13 @@ class LocationFindView(APIView):
         location_service = GoogleLocationService()
         video_frame_extract_service = VideoFrameExtractService()
         # parts = prepare_video_for_frame_splitting(video)
-        for video_frame in video_frame_extract_service.extract(video):
-            fill_video_frame_location_data(video_frame, location_service)
+        for i, video_frame in enumerate(
+            video_frame_extract_service.extract(video),
+        ):
+            if i % 7 == 0:
+                fill_video_frame_location_data(video_frame, location_service)
+            else:
+                video_frame.delete()
         video = drop_duplicate_locations_by_name(video)
         sources = utils.find_nearby_airports_by_ip(
             request.META.get('REMOTE_ADDR', '213.216.126.33'),
