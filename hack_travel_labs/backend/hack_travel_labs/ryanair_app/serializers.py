@@ -1,17 +1,17 @@
 from rest_framework import serializers
 
-from .models import ImageFrame, Video
+from .models import VideoFrame, Video
 
 
-class ImageFrameSerializers(serializers.ModelSerializer):
+class VideoFrameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ImageFrame
-        fields = ['name', 'timestamp', 'lat', 'lng']
+        model = VideoFrame
+        fields = ['name', 'time', 'latitude', 'longtitude', 'flight']
 
 
-class VideoSerializers(serializers.ModelSerializer):
-    locations = ImageFrameSerializers(source='frames', many=True)
+class VideoSerializer(serializers.ModelSerializer):
+    locations = VideoFrameSerializer(source='frames', many=True)
 
     class Meta:
         model = Video
-        fields = ['id', 'flight', 'locations']
+        fields = ['id', 'locations']
