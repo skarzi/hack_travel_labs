@@ -100,3 +100,4 @@ NOTEBOOK_ARGUMENTS = [
     '--allow-root',
     '--no-browser',
 ]
+ALLOWED_HOSTS = ['localhost', '0.0.0.0', 'm.bbarwik.com']
