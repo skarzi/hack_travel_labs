@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from hack_travel_labs.ryanair_app.serializers import VideoSerializer
 from hack_travel_labs.ryanair_app.models import Video
 from hack_travel_labs.flight_finder import tasks
+from hack_travel_labs.ryanair_app.tasks import results
 
 from .services import (
     drop_duplicate_locations_by_name,
@@ -47,7 +48,10 @@ class LocationFindView(APIView):
                 video_frame.delete()
         video = drop_duplicate_locations_by_name(video)
         self.search_flight_again(video, request)
-        return Response(data=VideoSerializer(video).data)
+        location = results(request, video.id)
+        return Response(data={
+            'location': location
+        }, status=200)
 
     @staticmethod
     def search_flight_again(video, request):
