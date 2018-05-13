@@ -3,7 +3,7 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 from django.conf import settings
 
-STATIC_APP_DIR = os.path.join(settings.STATIC_ROOT, 'ryanair_app/assets')
+STATIC_APP_DIR = os.path.join(settings.STATICFILES_DIRS[0], 'ryanair_app/assets')
 
 
 def banner1(destination, price):
