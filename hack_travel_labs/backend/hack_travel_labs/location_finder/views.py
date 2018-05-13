@@ -32,7 +32,10 @@ class LocationFindView(APIView):
             pass
         else:
             self.search_flight_again(video, request)
-            return Response(data=VideoSerializer(video).data)
+            location = results(request, video.id)
+            return Response(data={
+                'location': location
+            }, status=200)
         print(f'getting data for {video_url}...')
         video = YouTubeVideoDataExtractService().extract(video_url)
         print(f'data for {video.id}: {video.duration}, {video.frequency}')
@@ -60,10 +63,10 @@ class LocationFindView(APIView):
                 ip='213.216.126.33',
                 lat=video_frame.latitude,
                 lng=video_frame.longtitude,
-                forth_depart=request.GET.get('forth_depart', '2018-05-12'),
-                forth_arrive=request.GET.get('forth_arrive', '2018-05-15'),
+                forth_depart=request.GET.get('forth_depart', '2018-05-13'),
+                forth_arrive=request.GET.get('forth_arrive', '2018-05-20'),
                 back_depart=request.GET.get('back_depart', '2018-05-20'),
-                back_arrive=request.GET.get('back_arrive', '2018-05-22'),
+                back_arrive=request.GET.get('back_arrive', '2018-05-29'),
             ))
             video_frame.flight = flight
             video_frame.save()

@@ -15,7 +15,7 @@ def banner1(destination, price):
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-Bold_0.otf", size=30), fill=0x964016)
     draw.text((240, 50), "starts from ",
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-LightSemiExt.otf", size=30), fill=0x964016)
-    draw.text((390, 50), str(price),
+    draw.text((390, 50), f'{price} €',
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-Bold_0.otf", size=30), fill=0x964016)
     del draw
     return save_image(im, destination, price, 1)
@@ -31,7 +31,7 @@ def banner2(destination, price):
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-Bold_0.otf", size=60), fill=0x964016)
     draw.text((70, 130), "starts from",
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-LightSemiExt.otf", size=30), fill=0x964016)
-    draw.text((220, 125), str(price),
+    draw.text((220, 125), f'{price} €',
               font=ImageFont.truetype(f"{STATIC_APP_DIR}/MyriadPro-Bold_0.otf", size=40), fill=0x964016)
     del draw
     return save_image(im, destination, price, 2)
