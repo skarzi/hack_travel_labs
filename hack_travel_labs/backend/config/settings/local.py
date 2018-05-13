@@ -46,10 +46,7 @@ CACHES = {
 
 # STATIC SETTINGS FOR LOCAL ENVIRONMENT
 # -----------------------------------------------------------------------------
-STATIC_ROOT = None
-
 STATICFILES_DIRS = [
-    str(APPS_DIR('shared/static'))
 ]
 
 

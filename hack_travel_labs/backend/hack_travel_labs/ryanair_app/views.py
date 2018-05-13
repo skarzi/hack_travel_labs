@@ -31,10 +31,14 @@ def get_results(request):
         arrivalDate = frame.flight['outbound']['arrivalDate'][0:10]
         locations.append(dict(
             time=frame.time,
-            banner1=utils.banner1(country, price),
-            banner2=utils.banner2(country, price),
+            banner1=_make_url(request, utils.banner1(country, price)),
+            banner2=_make_url(request, utils.banner2(country, price)),
             link=f'https://www.ryanair.com/pl/pl/booking/home/{departureAirport}/{arrivalAirport}/{departureDate}/{arrivalDate}/1'
         ))
     return Response(data={
         'locations': locations
     }, status=200)
+
+
+def _make_url(request, banner):
+    return f'http://{request.META["HTTP_HOST"]}{banner}'
