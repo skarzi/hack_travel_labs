@@ -45,9 +45,8 @@ redis>=2.10.5
 
 
 # Distributed Task Queue
-# celery==4.1.0
-
-
+celery==4.1.0
+flower==0.9.2
 
 # Powerful and flexible toolkit for building Web APIs
 djangorestframework==3.7.7

@@ -31,7 +31,7 @@ services:
 #    image: redis:3.0
 #    env_file:
 #      - .env
-
+#
 #  celeryworker:
 #    <<: *app
 #    container_name: celeryworker-hack_travel_labs
@@ -42,7 +42,20 @@ services:
 #    env_file:
 #      - .env
 #    command: /start-celeryworker.sh
-
+#
+#  celeryflower:
+#    <<: *app
+#    container_name: flower-hack_travel_labs
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - celeryworker
+#    ports:
+#      - "5555:5555"
+#    env_file:
+#     - .env
+#    command: ["flower"]
+#
 #  celerybeat:
 #    <<: *app
 #    container_name: celerybeat-hack_travel_labs

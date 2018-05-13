@@ -21,7 +21,7 @@ RUN sed -i 's/\r//' /start.sh \
 #COPY ./docker/local/backend/celery/worker/start.sh /start-celeryworker.sh
 #RUN sed -i 's/\r//' /start-celeryworker.sh \
 #    && chmod +x /start-celeryworker.sh
-
+#
 #COPY ./docker/local/backend/celery/beat/start.sh /start-celerybeat.sh
 #RUN sed -i 's/\r//' /start-celerybeat.sh \
 #    && chmod +x /start-celerybeat.sh
