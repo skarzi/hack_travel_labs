@@ -5,14 +5,8 @@ from rest_framework.decorators import (
     schema,
 )
 
-from hack_travel_labs.ryanair_app.serializers import VideoSerializer
-
 from .tasks import find_flight
-from .exceptions import (
-    InvalidEnvironment,
-    MissingLatParam,
-    MissingLngParam,
-)
+from .exceptions import InvalidEnvironment
 
 
 @api_view(['GET'])
@@ -50,5 +44,5 @@ def get_flights_for_lat_lng(request):
     ))
 
     return Response(data={
-        'flight': VideoSerializer(flight)
+        'flight': flight
     }, status=200)

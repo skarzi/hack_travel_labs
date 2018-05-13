@@ -11,4 +11,9 @@ router.register(r'videos', views.VideoViewSet, base_name='videos')
 
 urlpatterns = [
     url(r'', include(router.urls)),
+    url(
+        regex=r'^results/$',
+        view=views.get_results,
+        name='results'
+    ),
 ]
